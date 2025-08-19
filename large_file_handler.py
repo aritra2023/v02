@@ -259,11 +259,10 @@ Enter duration in seconds:
             
             # Cleanup on error
             try:
-                temp_path_exists = 'temp_path' in locals() and temp_path
-                if temp_path_exists:
+                if 'temp_path' in locals() and temp_path:
                     await self._cleanup_files([temp_path])
-            except:
-                pass
+            except Exception as cleanup_error:
+                logger.warning(f"Cleanup failed: {cleanup_error}")
     
     async def _cleanup_files(self, file_paths: list):
         """Clean up temporary files."""
