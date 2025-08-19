@@ -101,18 +101,18 @@ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀
         duration_secs = video.duration % 60
         
         response_text = f"""
-📹 **Video Received!**
+📹 **Video Rᴇᴄᴇɪᴠᴇᴅ!**
 
-**File Info:**
-📁 Size: {file_size_mb:.1f} MB
-⏱️ Duration: {duration_mins:02d}:{duration_secs:02d}
-📱 Resolution: {video.width}x{video.height}
+**File Iɴғᴏ:**
+📁 **Size:** {file_size_mb:.1f} MB
+⏱️ **Duration:** {duration_mins:02d}:{duration_secs:02d}
+📱 **Resolution:** {video.width}x{video.height}
 
-Ready to split your video! Click the button below or use /clip to continue.
+**Ready ᴛᴏ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏ!** Cʟɪᴄᴋ ᴛʜᴇ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴏʀ ᴜsᴇ /clip ᴛᴏ ᴄᴏɴᴛɪɴᴜᴇ.
         """
         
         keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton("🎬 ᴄʟɪᴘ", callback_data="start_clip")]
+            [InlineKeyboardButton("🎬 Cʟɪᴘ Vɪᴅᴇᴏ", callback_data="start_clip")]
         ])
         
         await message.reply_text(response_text, reply_markup=keyboard)
@@ -123,7 +123,7 @@ Ready to split your video! Click the button below or use /clip to continue.
         user_id = message.from_user.id
         
         if user_id not in self.user_states or "video_message" not in self.user_states[user_id]:
-            await message.reply_text("❌ Please send a video first before using /clip!")
+            await message.reply_text("❌ **Please Sᴇɴᴅ ᴀ Vɪᴅᴇᴏ Fɪʀsᴛ Bᴇғᴏʀᴇ Usɪɴɢ /clip!**")
             return
         
         await self._ask_for_duration(message)
@@ -138,7 +138,7 @@ Ready to split your video! Click the button below or use /clip to continue.
         if data == "start_clip":
             if user_id not in self.user_states or "video_message" not in self.user_states[user_id]:
                 logger.warning(f"User {user_id} clicked clip button but no video state found")
-                await callback_query.answer("❌ Please send a video first!")
+                await callback_query.answer("❌ Please Sᴇɴᴅ ᴀ Vɪᴅᴇᴏ Fɪʀsᴛ!")
                 return
             
             logger.info(f"Starting clip process for user {user_id}")
@@ -161,17 +161,17 @@ Ready to split your video! Click the button below or use /clip to continue.
         logger.info(f"User {user_id} state changed to waiting_duration")
         
         duration_text = """
-⏱️ **Clip Duration**
+⏱️ **Clip Dᴜʀᴀᴛɪᴏɴ**
 
-How long should each clip be? Send me the duration in seconds.
+**How ʟᴏɴɢ sʜᴏᴜʟᴅ ᴇᴀᴄʜ ᴄʟɪᴘ ʙᴇ?** Sᴇɴᴅ ᴍᴇ ᴛʜᴇ ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs.
 
 **Examples:**
-• `30` - 30 second clips
-• `60` - 1 minute clips  
-• `120` - 2 minute clips
-• `300` - 5 minute clips
+• **30** - 30 sᴇᴄᴏɴᴅ ᴄʟɪᴘs
+• **60** - 1 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs  
+• **120** - 2 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs
+• **300** - 5 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs
 
-Enter duration in seconds:
+**Enter ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs:**
         """
         
         await message.reply_text(duration_text)
@@ -184,7 +184,7 @@ Enter duration in seconds:
         logger.info(f"Text message from user {user_id}: '{text}'")
         
         if user_id not in self.user_states:
-            await message.reply_text("❌ Please send a video first using /start!")
+            await message.reply_text("❌ **Please Sᴇɴᴅ ᴀ Vɪᴅᴇᴏ Fɪʀsᴛ Usɪɴɢ /start!**")
             return
         
         state = self.user_states[user_id].get("state")
@@ -194,21 +194,21 @@ Enter duration in seconds:
             try:
                 duration = int(text)
                 if duration <= 0:
-                    await message.reply_text("❌ Duration must be a positive number!")
+                    await message.reply_text("❌ **Duration ᴍᴜsᴛ ʙᴇ ᴀ ᴘᴏsɪᴛɪᴠᴇ ɴᴜᴍʙᴇʀ!**")
                     return
                 
                 if duration > 3600:  # 1 hour max
-                    await message.reply_text("❌ Duration too long! Maximum is 3600 seconds (1 hour).")
+                    await message.reply_text("❌ **Duration ᴛᴏᴏ ʟᴏɴɢ!** Mᴀxɪᴍᴜᴍ ɪs 3600 sᴇᴄᴏɴᴅs (1 ʜᴏᴜʀ).")
                     return
                 
                 # Start processing
                 await self._process_video(message, duration)
                 
             except ValueError:
-                await message.reply_text("❌ Please enter a valid number for duration!")
+                await message.reply_text("❌ **Please Eɴᴛᴇʀ ᴀ Vᴀʟɪᴅ Nᴜᴍʙᴇʀ ғᴏʀ Dᴜʀᴀᴛɪᴏɴ!**")
         
         else:
-            await message.reply_text("❌ I don't understand. Please send a video or use /start!")
+            await message.reply_text("❌ **I Dᴏɴ'ᴛ Uɴᴅᴇʀsᴛᴀɴᴅ.** Pʟᴇᴀsᴇ sᴇɴᴅ ᴀ ᴠɪᴅᴇᴏ ᴏʀ ᴜsᴇ /start!")
     
     async def _process_video(self, message: Message, duration: int):
         """Process the video and split into clips."""
@@ -216,7 +216,7 @@ Enter duration in seconds:
         video_message = self.user_states[user_id]["video_message"]
         
         # Send processing message
-        status_msg = await message.reply_text("🔄 **Processing your video...**\n\n⏳ Downloading video...")
+        status_msg = await message.reply_text("🔄 **Processing Yᴏᴜʀ Vɪᴅᴇᴏ...**\n\n⏳ **Downloading Vɪᴅᴇᴏ...**")
         
         try:
             # Download video
@@ -224,7 +224,7 @@ Enter duration in seconds:
                 temp_path = temp_file.name
             
             await video_message.download(file_name=temp_path)
-            await status_msg.edit_text("🔄 **Processing your video...**\n\n✅ Download complete\n⏳ Splitting video...")
+            await status_msg.edit_text("🔄 **Processing Yᴏᴜʀ Vɪᴅᴇᴏ...**\n\n✅ **Download Cᴏᴍᴘʟᴇᴛᴇ**\n⏳ **Splitting Vɪᴅᴇᴏ...**")
             
             # Process video
             output_dir = f"clips/user_{user_id}"
@@ -236,27 +236,27 @@ Enter duration in seconds:
                 segment_duration=duration
             )
             
-            await status_msg.edit_text("🔄 **Processing your video...**\n\n✅ Download complete\n✅ Video split complete\n⏳ Uploading clips...")
+            await status_msg.edit_text("🔄 **Processing Yᴏᴜʀ Vɪᴅᴇᴏ...**\n\n✅ **Download Cᴏᴍᴘʟᴇᴛᴇ**\n✅ **Video Sᴘʟɪᴛ Cᴏᴍᴘʟᴇᴛᴇ**\n⏳ **Uploading Cʟɪᴘs...**")
             
             # Upload clips
             for i, clip_path in enumerate(clip_files, 1):
                 try:
-                    caption = f"📹 Clip {i}/{len(clip_files)} ({duration}s each)"
+                    caption = f"📹 **Clip {i}/{len(clip_files)}** • **Duration:** {duration}s ᴇᴀᴄʜ • **Quality:** Oʀɪɢɪɴᴀʟ"
                     await message.reply_video(
                         video=clip_path,
                         caption=caption
                     )
                     
                     # Update progress
-                    progress = f"⏳ Uploading clips... ({i}/{len(clip_files)})"
-                    await status_msg.edit_text(f"🔄 **Processing your video...**\n\n✅ Download complete\n✅ Video split complete\n{progress}")
+                    progress = f"⏳ **Uploading Cʟɪᴘs...** ({i}/{len(clip_files)})"
+                    await status_msg.edit_text(f"🔄 **Processing Yᴏᴜʀ Vɪᴅᴇᴏ...**\n\n✅ **Download Cᴏᴍᴘʟᴇᴛᴇ**\n✅ **Video Sᴘʟɪᴛ Cᴏᴍᴘʟᴇᴛᴇ**\n{progress}")
                     
                 except Exception as e:
                     logger.error(f"Failed to upload clip {i}: {e}")
-                    await message.reply_text(f"❌ Failed to upload clip {i}: {str(e)}")
+                    await message.reply_text(f"❌ **Failed ᴛᴏ Uᴘʟᴏᴀᴅ Cʟɪᴘ {i}:** {str(e)}")
             
             # Success message
-            await status_msg.edit_text(f"✅ **Processing Complete!**\n\n📹 {len(clip_files)} clips sent successfully!")
+            await status_msg.edit_text(f"✅ **Processing Cᴏᴍᴘʟᴇᴛᴇ!**\n\n📹 **{len(clip_files)} Cʟɪᴘs Sᴇɴᴛ Sᴜᴄᴄᴇssғᴜʟʟʏ!**\n\n🎬 **Thank Yᴏᴜ ғᴏʀ ᴜsɪɴɢ Vɪᴅᴇᴏ Sᴘʟɪᴛᴛᴇʀ Bᴏᴛ!**")
             
             # Cleanup
             await self._cleanup_files([temp_path] + clip_files)
