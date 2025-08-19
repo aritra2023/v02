@@ -63,18 +63,18 @@ class LargeFileHandler:
     async def _handle_start(self, message: Message):
         """Handle /start command."""
         welcome_text = """
-**Welcome ᴛᴏ Insta Aᴜᴛᴏ Pᴏsᴛɪɴɢ Bᴏᴛ!**
+**Wᴇʟᴄᴏᴍᴇ ᴛᴏ Iɴsᴛᴀ Aᴜᴛᴏ Pᴏsᴛɪɴɢ Bᴏᴛ!**
 
-**I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs + ᴇᴅɪᴛ + ᴀɴᴅ ᴀᴜᴛᴏ-ᴜᴘʟᴏᴀᴅ ᴛᴏ Instagram**
+**I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs + ᴇᴅɪᴛ + ᴀɴᴅ ᴀᴜᴛᴏ-ᴜᴘʟᴏᴀᴅ ᴛᴏ Iɴsᴛᴀɢʀᴀᴍ**
 
-**Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ**
+**Sᴇɴᴅ ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ**
         """
         
         # Create inline keyboard with About and Settings buttons
         keyboard = InlineKeyboardMarkup([
             [
-                InlineKeyboardButton("About ᴜs", callback_data="about"),
-                InlineKeyboardButton("Settings", callback_data="settings")
+                InlineKeyboardButton("Aʙᴏᴜᴛ ᴜs", callback_data="about"),
+                InlineKeyboardButton("Sᴇᴛᴛɪɴɢs", callback_data="settings")
             ]
         ])
         
@@ -115,7 +115,7 @@ class LargeFileHandler:
         """
         
         keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton("Create Cʟɪᴘs", callback_data="start_clip")]
+            [InlineKeyboardButton("Cʀᴇᴀᴛᴇ Cʟɪᴘs", callback_data="start_clip")]
         ])
         
         await message.reply_text(response_text, reply_markup=keyboard)
