@@ -78,9 +78,9 @@ class LargeFileHandler:
             ]
         ])
         
-        # Send welcome message with rotated image and buttons
+        # Send welcome message with image and buttons
         await message.reply_photo(
-            photo="https://files.catbox.moe/2gmodm.jpg",
+            photo="https://files.catbox.moe/7iv0jo.jpg",
             caption=welcome_text,
             reply_markup=keyboard
         )
