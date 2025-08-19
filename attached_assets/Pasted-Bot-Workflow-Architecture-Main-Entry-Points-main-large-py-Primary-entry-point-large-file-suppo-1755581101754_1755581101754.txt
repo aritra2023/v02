@@ -1,0 +1,88 @@
+Bot Workflow Architecture
+Main Entry Points:
+main_large.py - Primary entry point (large file support)
+main.py - Fallback entry point (standard bot)
+Workflow Process:
+1. Bot Initialization
+Check for API credentials (TELEGRAM_API_ID, TELEGRAM_API_HASH)
+If available → Start LargeFileHandler (MTProto support)
+If not available → Fallback to TelegramVideoBot (standard bot)
+2. User Interaction Flow
+User sends /start → Welcome message with instructions
+User forwards video → Bot downloads and stores video info
+User clicks "🎬 ᴄʟɪᴘ" button OR sends /clip → Ask for clip duration
+User enters duration → Video processing starts
+Bot splits video → Sends individual clips back to user
+3. File Processing Pipeline
+Video Upload → Download → FFmpeg Processing → Split into clips → Upload clips → Cleanup
+Technology Stack Details
+Core Libraries:
+python-telegram-bot[ext]>=22.3 - Standard Telegram Bot API
+pyrogram>=2.0.106 - MTProto protocol for large files (2GB support)
+tgcrypto>=1.2.5 - Encryption for Pyrogram
+ffmpeg-python>=0.2.0 - Python wrapper for FFmpeg
+System Dependencies:
+FFmpeg-full - Video processing engine (via Nix package)
+Python 3.11 - Runtime environment
+Architecture Components:
+1. LargeFileHandler (large_file_handler.py)
+Purpose: Handles files up to 2GB using MTProto
+Key Features:
+Pyrogram client for MTProto protocol
+User session management
+Callback query handling
+Asynchronous file processing
+2. TelegramVideoBot (bot_handler.py)
+Purpose: Standard bot with 20MB file limit
+Key Features:
+python-telegram-bot integration
+Inline keyboard support
+File size validation
+State management
+3. VideoProcessor (video_processor.py)
+Purpose: Core video splitting engine
+Key Features:
+FFmpeg command execution
+Asynchronous subprocess handling
+File cleanup management
+Video metadata extraction
+Processing Technologies:
+FFmpeg Configuration:
+ffmpeg -i input.mp4 -c copy -map 0 -f segment -segment_time 30 -reset_timestamps 1 -avoid_negative_ts make_zero output_%03d.mp4
+Parameters Used:
+
+-c copy: Stream copying (no re-encoding)
+-f segment: Segment muxer for splitting
+-segment_time: Duration per clip
+-reset_timestamps: Reset time for each segment
+File Management System:
+Directory Structure:
+Project/
+├── clips/                 # Output directory for processed clips
+├── large_file_handler.py  # MTProto implementation
+├── bot_handler.py         # Standard bot implementation
+├── video_processor.py     # FFmpeg processing engine
+├── main_large.py         # Large file entry point
+└── main.py               # Standard entry point
+File Naming Convention:
+Input: video_{user_id}_{message_id}.mp4
+Output: clip_{user_id}_%03d.mp4
+Environment Configuration:
+Required Variables:
+BOT_TOKEN: Telegram bot authentication
+TELEGRAM_API_ID: MTProto API ID (optional, for large files)
+TELEGRAM_API_HASH: MTProto API hash (optional, for large files)
+Performance Optimizations:
+Stream Copying: No video re-encoding for faster processing
+Asynchronous Processing: Non-blocking operations
+MTProto Protocol: Direct TCP connection to Telegram servers
+Automatic Cleanup: Memory and storage management
+Error Handling:
+File size validation
+FFmpeg process monitoring
+Session state management
+Graceful fallback mechanisms
+Deployment (Replit Configuration):
+Nix Modules: python-3.11, ffmpeg-full
+Workflow: Automated startup via Run button
+Session Persistence: SQLite session files for Pyrogram
