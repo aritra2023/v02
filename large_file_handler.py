@@ -63,22 +63,22 @@ class LargeFileHandler:
     async def _handle_start(self, message: Message):
         """Handle /start command."""
         welcome_text = """
-🎬 **Welcome to Video Splitter Bot!**
+🎬 **Wᴇʟᴄᴏᴍᴇ ᴛᴏ Vɪᴅᴇᴏ Sᴘʟɪᴛᴛᴇʀ Bᴏᴛ!**
 
-I can split your videos into smaller clips. Here's how:
+I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs. Hᴇʀᴇ's ʜᴏᴡ:
 
-1️⃣ Send me a video file (up to 2GB)
-2️⃣ Click the "🎬 ᴄʟɪᴘ" button or use /clip
-3️⃣ Tell me how long each clip should be (in seconds)
-4️⃣ I'll split your video and send you the clips!
+1️⃣ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ғɪʟᴇ (ᴜᴘ ᴛᴏ 2GB)
+2️⃣ Click ᴛʜᴇ "🎬 Cʟɪᴘ" ʙᴜᴛᴛᴏɴ ᴏʀ ᴜsᴇ /clip
+3️⃣ Tell ᴍᴇ ʜᴏᴡ ʟᴏɴɢ ᴇᴀᴄʜ ᴄʟɪᴘ sʜᴏᴜʟᴅ ʙᴇ (ɪɴ sᴇᴄᴏɴᴅs)
+4️⃣ I'll sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏ ᴀɴᴅ sᴇɴᴅ ʏᴏᴜ ᴛʜᴇ ᴄʟɪᴘs!
 
 **Features:**
-✅ Support for files up to 2GB
-✅ Fast processing (no re-encoding)
-✅ Multiple output formats
-✅ Automatic cleanup
+✅ Support ғᴏʀ ғɪʟᴇs ᴜᴘ ᴛᴏ 2GB
+✅ Fast ᴘʀᴏᴄᴇssɪɴɢ (ɴᴏ ʀᴇ-ᴇɴᴄᴏᴅɪɴɢ)
+✅ Multiple ᴏᴜᴛᴘᴜᴛ ғᴏʀᴍᴀᴛs
+✅ Automatic ᴄʟᴇᴀɴᴜᴘ
 
-Send me a video to get started! 🚀
+Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀
         """
         
         await message.reply_text(welcome_text)
