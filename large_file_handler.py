@@ -133,11 +133,15 @@ Ready to split your video! Click the button below or use /clip to continue.
         user_id = callback_query.from_user.id
         data = callback_query.data
         
+        logger.info(f"Callback received from user {user_id}: {data}")
+        
         if data == "start_clip":
             if user_id not in self.user_states or "video_message" not in self.user_states[user_id]:
+                logger.warning(f"User {user_id} clicked clip button but no video state found")
                 await callback_query.answer("❌ Please send a video first!")
                 return
             
+            logger.info(f"Starting clip process for user {user_id}")
             await callback_query.answer()
             await self._ask_for_duration(callback_query.message)
     
@@ -170,16 +174,20 @@ Enter duration in seconds:
     async def _handle_text(self, message: Message):
         """Handle text messages (duration input)."""
         user_id = message.from_user.id
+        text = message.text.strip()
+        
+        logger.info(f"Text message from user {user_id}: '{text}'")
         
         if user_id not in self.user_states:
             await message.reply_text("❌ Please send a video first using /start!")
             return
         
         state = self.user_states[user_id].get("state")
+        logger.info(f"User {user_id} state: {state}")
         
         if state == "waiting_duration":
             try:
-                duration = int(message.text.strip())
+                duration = int(text)
                 if duration <= 0:
                     await message.reply_text("❌ Duration must be a positive number!")
                     return
