@@ -67,13 +67,6 @@ class LargeFileHandler:
 
 **I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs + ᴇᴅɪᴛ + ᴀɴᴅ ᴀᴜᴛᴏ-ᴜᴘʟᴏᴀᴅ ᴛᴏ Instagram**
 
-**How ɪᴛ ᴡᴏʀᴋs:**
-
-**1. Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ғɪʟᴇ (ᴜᴘ ᴛᴏ 2GB)**
-**2. Click ᴛʜᴇ "Create Cʟɪᴘs" ʙᴜᴛᴛᴏɴ ᴏʀ ᴜsᴇ /clip**
-**3. Tell ᴍᴇ ʜᴏᴡ ʟᴏɴɢ ᴇᴀᴄʜ ᴄʟɪᴘ sʜᴏᴜʟᴅ ʙᴇ**
-**4. I'll sᴘʟɪᴛ, ᴇᴅɪᴛ ᴀɴᴅ ᴘʀᴇᴘᴀʀᴇ ʏᴏᴜʀ ᴄʟɪᴘs ғᴏʀ Instagram**
-
 **Features:**
 **Support ғᴏʀ ғɪʟᴇs ᴜᴘ ᴛᴏ 2GB**
 **Fast ᴘʀᴏᴄᴇssɪɴɢ ᴡɪᴛʜ ᴏʀɪɢɪɴᴀʟ ǫᴜᴀʟɪᴛʏ**
@@ -91,9 +84,9 @@ class LargeFileHandler:
             ]
         ])
         
-        # Send welcome message with image and buttons
+        # Send welcome message with rotated image and buttons
         await message.reply_photo(
-            photo="https://files.catbox.moe/cxq0jt.jpg",
+            photo="https://files.catbox.moe/2gmodm.jpg",
             caption=welcome_text,
             reply_markup=keyboard
         )
