@@ -1,2 +1,30 @@
+modules = ["python-3.11"]
 [agent]
 expertMode = true
+
+[nix]
+channel = "stable-25_05"
+packages = ["ffmpeg-full"]
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Telegram Video Splitter Bot"
+
+[[workflows.workflow]]
+name = "Telegram Video Splitter Bot"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pip install python-telegram-bot[ext]>=22.3 pyrogram>=2.0.106 tgcrypto>=1.2.5 ffmpeg-python>=0.2.0 && python main_large.py"
+
+[workflows.workflow.metadata]
+outputType = "console"
