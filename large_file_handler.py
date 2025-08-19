@@ -67,12 +67,6 @@ class LargeFileHandler:
 
 **I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs + ᴇᴅɪᴛ + ᴀɴᴅ ᴀᴜᴛᴏ-ᴜᴘʟᴏᴀᴅ ᴛᴏ Instagram**
 
-**Features:**
-**Support ғᴏʀ ғɪʟᴇs ᴜᴘ ᴛᴏ 2GB**
-**Fast ᴘʀᴏᴄᴇssɪɴɢ ᴡɪᴛʜ ᴏʀɪɢɪɴᴀʟ ǫᴜᴀʟɪᴛʏ**
-**Automatic ᴇᴅɪᴛɪɴɢ ᴀɴᴅ ᴏᴘᴛɪᴍɪᴢᴀᴛɪᴏɴ**
-**Ready ғᴏʀ Instagram ᴜᴘʟᴏᴀᴅ**
-
 **Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ**
         """
         
