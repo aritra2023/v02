@@ -63,25 +63,40 @@ class LargeFileHandler:
     async def _handle_start(self, message: Message):
         """Handle /start command."""
         welcome_text = """
-🎬 **Welcome ᴛᴏ Vɪᴅᴇᴏ Sᴘʟɪᴛᴛᴇʀ Bᴏᴛ!**
+**Welcome ᴛᴏ Insta Aᴜᴛᴏ Pᴏsᴛɪɴɢ Bᴏᴛ!**
 
-**I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs. Here's ʜᴏᴡ:**
+**I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs + ᴇᴅɪᴛ + ᴀɴᴅ ᴀᴜᴛᴏ-ᴜᴘʟᴏᴀᴅ ᴛᴏ Instagram**
 
-**1️⃣ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ғɪʟᴇ (ᴜᴘ ᴛᴏ 2GB)**
-**2️⃣ Click ᴛʜᴇ "🎬 Cʟɪᴘ" ʙᴜᴛᴛᴏɴ ᴏʀ ᴜsᴇ /clip**
-**3️⃣ Tell ᴍᴇ ʜᴏᴡ ʟᴏɴɢ ᴇᴀᴄʜ ᴄʟɪᴘ sʜᴏᴜʟᴅ ʙᴇ (ɪɴ sᴇᴄᴏɴᴅs)**
-**4️⃣ I'll sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏ ᴀɴᴅ sᴇɴᴅ ʏᴏᴜ ᴛʜᴇ ᴄʟɪᴘs!**
+**How ɪᴛ ᴡᴏʀᴋs:**
+
+**1. Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ғɪʟᴇ (ᴜᴘ ᴛᴏ 2GB)**
+**2. Click ᴛʜᴇ "Create Cʟɪᴘs" ʙᴜᴛᴛᴏɴ ᴏʀ ᴜsᴇ /clip**
+**3. Tell ᴍᴇ ʜᴏᴡ ʟᴏɴɢ ᴇᴀᴄʜ ᴄʟɪᴘ sʜᴏᴜʟᴅ ʙᴇ**
+**4. I'll sᴘʟɪᴛ, ᴇᴅɪᴛ ᴀɴᴅ ᴘʀᴇᴘᴀʀᴇ ʏᴏᴜʀ ᴄʟɪᴘs ғᴏʀ Instagram**
 
 **Features:**
-**✅ Support ғᴏʀ ғɪʟᴇs ᴜᴘ ᴛᴏ 2GB**
-**✅ Fast ᴘʀᴏᴄᴇssɪɴɢ (ɴᴏ ʀᴇ-ᴇɴᴄᴏᴅɪɴɢ)**
-**✅ Multiple ᴏᴜᴛᴘᴜᴛ ғᴏʀᴍᴀᴛs**
-**✅ Automatic ᴄʟᴇᴀɴᴜᴘ**
+**Support ғᴏʀ ғɪʟᴇs ᴜᴘ ᴛᴏ 2GB**
+**Fast ᴘʀᴏᴄᴇssɪɴɢ ᴡɪᴛʜ ᴏʀɪɢɪɴᴀʟ ǫᴜᴀʟɪᴛʏ**
+**Automatic ᴇᴅɪᴛɪɴɢ ᴀɴᴅ ᴏᴘᴛɪᴍɪᴢᴀᴛɪᴏɴ**
+**Ready ғᴏʀ Instagram ᴜᴘʟᴏᴀᴅ**
 
-**Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀**
+**Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ**
         """
         
-        await message.reply_text(welcome_text)
+        # Create inline keyboard with About and Settings buttons
+        keyboard = InlineKeyboardMarkup([
+            [
+                InlineKeyboardButton("About ᴜs", callback_data="about"),
+                InlineKeyboardButton("Settings", callback_data="settings")
+            ]
+        ])
+        
+        # Send welcome message with image and buttons
+        await message.reply_photo(
+            photo="https://files.catbox.moe/cxq0jt.jpg",
+            caption=welcome_text,
+            reply_markup=keyboard
+        )
         logger.info(f"User {message.from_user.id} started the bot")
     
     async def _handle_video(self, message: Message):
@@ -113,7 +128,7 @@ class LargeFileHandler:
         """
         
         keyboard = InlineKeyboardMarkup([
-            [InlineKeyboardButton("🎬 Cʟɪᴘ Vɪᴅᴇᴏ", callback_data="start_clip")]
+            [InlineKeyboardButton("Create Cʟɪᴘs", callback_data="start_clip")]
         ])
         
         await message.reply_text(response_text, reply_markup=keyboard)
@@ -139,13 +154,46 @@ class LargeFileHandler:
         if data == "start_clip":
             if user_id not in self.user_states or "video_message" not in self.user_states[user_id]:
                 logger.warning(f"User {user_id} clicked clip button but no video state found")
-                await callback_query.answer("❌ Please Sᴇɴᴅ ᴀ Vɪᴅᴇᴏ Fɪʀsᴛ!")
+                await callback_query.answer("Please Send ᴀ Vɪᴅᴇᴏ Fɪʀsᴛ!")
                 return
             
             logger.info(f"Starting clip process for user {user_id}")
             await callback_query.answer()
             # Pass user_id directly since callback_query.message doesn't have from_user
             await self._ask_for_duration_with_user_id(callback_query.message, user_id)
+            
+        elif data == "about":
+            about_text = """
+**About Insta Aᴜᴛᴏ Pᴏsᴛɪɴɢ Bᴏᴛ**
+
+**This ʙᴏᴛ ʜᴇʟᴘs ʏᴏᴜ ᴄʀᴇᴀᴛᴇ Instagram-ʀᴇᴀᴅʏ ᴄᴏɴᴛᴇɴᴛ ғʀᴏᴍ ʏᴏᴜʀ ʟᴏɴɢ ᴠɪᴅᴇᴏs**
+
+**Features:**
+**Advanced ᴠɪᴅᴇᴏ sᴘʟɪᴛᴛɪɴɢ ᴛᴇᴄʜɴᴏʟᴏɢʏ**
+**High-ǫᴜᴀʟɪᴛʏ ᴏᴜᴛᴘᴜᴛ ᴡɪᴛʜ ᴏʀɪɢɪɴᴀʟ ʀᴇsᴏʟᴜᴛɪᴏɴ**
+**Support ғᴏʀ ғɪʟᴇs ᴜᴘ ᴛᴏ 2GB**
+**Optimized ғᴏʀ Instagram ғᴏʀᴍᴀᴛs**
+
+**Developer:** **Professional Mᴇᴅɪᴀ Tᴇᴀᴍ**
+**Version:** **2.0**
+            """
+            await callback_query.message.reply_text(about_text)
+            await callback_query.answer()
+            
+        elif data == "settings":
+            settings_text = """
+**Settings Pᴀɴᴇʟ**
+
+**Current Cᴏɴғɪɢᴜʀᴀᴛɪᴏɴ:**
+**Max Fɪʟᴇ Sɪᴢᴇ:** **2GB**
+**Output Qᴜᴀʟɪᴛʏ:** **Original**
+**Processing Mᴏᴅᴇ:** **Fast (Stream Copy)**
+**Auto-Cʟᴇᴀɴᴜᴘ:** **Enabled**
+
+**Note:** **Settings ᴀʀᴇ ᴄᴜʀʀᴇɴᴛʟʏ ᴏᴘᴛɪᴍɪᴢᴇᴅ ғᴏʀ ʙᴇsᴛ ᴘᴇʀғᴏʀᴍᴀɴᴄᴇ**
+            """
+            await callback_query.message.reply_text(settings_text)
+            await callback_query.answer()
     
     async def _ask_for_duration(self, message: Message):
         """Ask user for clip duration."""
