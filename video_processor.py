@@ -40,12 +40,13 @@ class VideoProcessor:
             logger.info(f"Segment duration: {segment_duration}s")
             logger.info(f"Output pattern: {output_pattern}")
             
-            # Build FFmpeg command directly
+            # Build FFmpeg command directly - exclude subtitle streams
             cmd = [
                 'ffmpeg',
                 '-i', input_path,
                 '-c', 'copy',  # Stream copy - no re-encoding
-                '-map', '0',   # Map all streams
+                '-map', '0:v',  # Map video streams
+                '-map', '0:a',  # Map audio streams
                 '-f', 'segment',
                 '-segment_time', str(segment_duration),
                 '-reset_timestamps', '1',

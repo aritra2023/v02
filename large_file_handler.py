@@ -268,7 +268,8 @@ Enter duration in seconds:
             
         except Exception as e:
             logger.error(f"Video processing failed for user {user_id}: {e}")
-            await status_msg.edit_text(f"❌ **Processing Failed!**\n\nError: {str(e)}")
+            error_msg = str(e)[:200] + "..." if len(str(e)) > 200 else str(e)
+            await status_msg.edit_text(f"❌ **Processing Failed!**\n\nError: {error_msg}")
             
             # Cleanup on error
             try:
