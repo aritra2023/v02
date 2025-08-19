@@ -143,17 +143,22 @@ Ready to split your video! Click the button below or use /clip to continue.
             
             logger.info(f"Starting clip process for user {user_id}")
             await callback_query.answer()
-            await self._ask_for_duration(callback_query.message)
+            # Pass user_id directly since callback_query.message doesn't have from_user
+            await self._ask_for_duration_with_user_id(callback_query.message, user_id)
     
     async def _ask_for_duration(self, message: Message):
         """Ask user for clip duration."""
-        user_id = message.from_user.id if hasattr(message, 'from_user') else message.chat.id
-        
-        # Ensure user state exists
+        user_id = message.from_user.id if hasattr(message, 'from_user') and message.from_user else message.chat.id
+        await self._ask_for_duration_with_user_id(message, user_id)
+    
+    async def _ask_for_duration_with_user_id(self, message: Message, user_id: int):
+        """Ask user for clip duration with explicit user ID."""
+        # Ensure user state exists and preserve video_message
         if user_id not in self.user_states:
             self.user_states[user_id] = {}
         
         self.user_states[user_id]["state"] = "waiting_duration"
+        logger.info(f"User {user_id} state changed to waiting_duration")
         
         duration_text = """
 ⏱️ **Clip Duration**

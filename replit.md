@@ -36,6 +36,8 @@ User sessions are tracked using in-memory dictionaries that store:
 - Video file information and metadata
 - Processing status and temporary file paths
 
+**Recent Fix (2025-08-19)**: Fixed callback query state management where user state wasn't properly updated when clicking the clip button. Added proper user ID handling for inline keyboard callbacks.
+
 ### User Interface Design
 The bot implements an interactive workflow using:
 - Inline keyboards for clip creation commands
