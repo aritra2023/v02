@@ -8,7 +8,6 @@ import logging
 import os
 import subprocess
 from typing import List
-import ffmpeg
 
 logger = logging.getLogger(__name__)
 
@@ -41,24 +40,20 @@ class VideoProcessor:
             logger.info(f"Segment duration: {segment_duration}s")
             logger.info(f"Output pattern: {output_pattern}")
             
-            # Build FFmpeg command using ffmpeg-python
-            stream = ffmpeg.input(input_path)
+            # Build FFmpeg command directly
+            cmd = [
+                'ffmpeg',
+                '-i', input_path,
+                '-c', 'copy',  # Stream copy - no re-encoding
+                '-map', '0',   # Map all streams
+                '-f', 'segment',
+                '-segment_time', str(segment_duration),
+                '-reset_timestamps', '1',
+                '-avoid_negative_ts', 'make_zero',
+                '-y',  # Overwrite output files
+                output_pattern
+            ]
             
-            # Configure output with segment options
-            output = ffmpeg.output(
-                stream,
-                output_pattern,
-                format='segment',
-                segment_time=segment_duration,
-                c='copy',  # Stream copy - no re-encoding
-                map=0,     # Map all streams
-                reset_timestamps=1,
-                avoid_negative_ts='make_zero',
-                f='segment'
-            )
-            
-            # Run FFmpeg command
-            cmd = ffmpeg.compile(output, overwrite_output=True)
             logger.info(f"FFmpeg command: {' '.join(cmd)}")
             
             # Execute command asynchronously
@@ -107,12 +102,37 @@ class VideoProcessor:
             Dictionary containing video metadata
         """
         try:
-            # Use ffmpeg.probe to get video information
-            probe = ffmpeg.probe(video_path)
+            # Use ffprobe command directly
+            cmd = [
+                'ffprobe',
+                '-v', 'quiet',
+                '-print_format', 'json',
+                '-show_format',
+                '-show_streams',
+                video_path
+            ]
+            
+            # Execute command
+            process = await asyncio.create_subprocess_exec(
+                *cmd,
+                stdout=asyncio.subprocess.PIPE,
+                stderr=asyncio.subprocess.PIPE
+            )
+            
+            stdout, stderr = await process.communicate()
+            
+            if process.returncode != 0:
+                error_msg = stderr.decode('utf-8') if stderr else "Unknown FFprobe error"
+                logger.error(f"FFprobe failed: {error_msg}")
+                raise Exception(f"Video analysis failed: {error_msg}")
+            
+            # Parse JSON output
+            import json
+            probe_data = json.loads(stdout.decode('utf-8'))
             
             # Extract video stream info
             video_stream = next(
-                (stream for stream in probe['streams'] if stream['codec_type'] == 'video'),
+                (stream for stream in probe_data['streams'] if stream['codec_type'] == 'video'),
                 None
             )
             
@@ -121,12 +141,12 @@ class VideoProcessor:
             
             # Extract useful information
             info = {
-                'duration': float(probe['format']['duration']),
-                'size': int(probe['format']['size']),
-                'bitrate': int(probe['format']['bit_rate']),
+                'duration': float(probe_data['format']['duration']),
+                'size': int(probe_data['format']['size']),
+                'bitrate': int(probe_data['format'].get('bit_rate', 0)),
                 'width': int(video_stream['width']),
                 'height': int(video_stream['height']),
-                'fps': eval(video_stream['r_frame_rate']),  # Convert fraction to float
+                'fps': eval(video_stream['r_frame_rate']) if '/' in video_stream['r_frame_rate'] else float(video_stream['r_frame_rate']),
                 'codec': video_stream['codec_name']
             }
             

@@ -145,6 +145,10 @@ Ready to split your video! Click the button below or use /clip to continue.
         """Ask user for clip duration."""
         user_id = message.from_user.id if hasattr(message, 'from_user') else message.chat.id
         
+        # Ensure user state exists
+        if user_id not in self.user_states:
+            self.user_states[user_id] = {}
+        
         self.user_states[user_id]["state"] = "waiting_duration"
         
         duration_text = """
