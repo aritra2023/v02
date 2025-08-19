@@ -63,22 +63,22 @@ class LargeFileHandler:
     async def _handle_start(self, message: Message):
         """Handle /start command."""
         welcome_text = """
-🎬 **Wᴇʟᴄᴏᴍᴇ ᴛᴏ Vɪᴅᴇᴏ Sᴘʟɪᴛᴛᴇʀ Bᴏᴛ!**
+🎬 **Welcome ᴛᴏ Vɪᴅᴇᴏ Sᴘʟɪᴛᴛᴇʀ Bᴏᴛ!**
 
-I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs. Hᴇʀᴇ's ʜᴏᴡ:
+**I ᴄᴀɴ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏs ɪɴᴛᴏ sᴍᴀʟʟᴇʀ ᴄʟɪᴘs. Here's ʜᴏᴡ:**
 
-1️⃣ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ғɪʟᴇ (ᴜᴘ ᴛᴏ 2GB)
-2️⃣ Click ᴛʜᴇ "🎬 Cʟɪᴘ" ʙᴜᴛᴛᴏɴ ᴏʀ ᴜsᴇ /clip
-3️⃣ Tell ᴍᴇ ʜᴏᴡ ʟᴏɴɢ ᴇᴀᴄʜ ᴄʟɪᴘ sʜᴏᴜʟᴅ ʙᴇ (ɪɴ sᴇᴄᴏɴᴅs)
-4️⃣ I'll sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏ ᴀɴᴅ sᴇɴᴅ ʏᴏᴜ ᴛʜᴇ ᴄʟɪᴘs!
+**1️⃣ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ғɪʟᴇ (ᴜᴘ ᴛᴏ 2GB)**
+**2️⃣ Click ᴛʜᴇ "🎬 Cʟɪᴘ" ʙᴜᴛᴛᴏɴ ᴏʀ ᴜsᴇ /clip**
+**3️⃣ Tell ᴍᴇ ʜᴏᴡ ʟᴏɴɢ ᴇᴀᴄʜ ᴄʟɪᴘ sʜᴏᴜʟᴅ ʙᴇ (ɪɴ sᴇᴄᴏɴᴅs)**
+**4️⃣ I'll sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏ ᴀɴᴅ sᴇɴᴅ ʏᴏᴜ ᴛʜᴇ ᴄʟɪᴘs!**
 
 **Features:**
-✅ Support ғᴏʀ ғɪʟᴇs ᴜᴘ ᴛᴏ 2GB
-✅ Fast ᴘʀᴏᴄᴇssɪɴɢ (ɴᴏ ʀᴇ-ᴇɴᴄᴏᴅɪɴɢ)
-✅ Multiple ᴏᴜᴛᴘᴜᴛ ғᴏʀᴍᴀᴛs
-✅ Automatic ᴄʟᴇᴀɴᴜᴘ
+**✅ Support ғᴏʀ ғɪʟᴇs ᴜᴘ ᴛᴏ 2GB**
+**✅ Fast ᴘʀᴏᴄᴇssɪɴɢ (ɴᴏ ʀᴇ-ᴇɴᴄᴏᴅɪɴɢ)**
+**✅ Multiple ᴏᴜᴛᴘᴜᴛ ғᴏʀᴍᴀᴛs**
+**✅ Automatic ᴄʟᴇᴀɴᴜᴘ**
 
-Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀
+**Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀**
         """
         
         await message.reply_text(welcome_text)
@@ -101,14 +101,15 @@ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀
         duration_secs = video.duration % 60
         
         response_text = f"""
-📹 **Video Rᴇᴄᴇɪᴠᴇᴅ!**
+📹 **Video ʀᴇᴄᴇɪᴠᴇᴅ!**
 
-**File Iɴғᴏ:**
-📁 **Size:** {file_size_mb:.1f} MB
-⏱️ **Duration:** {duration_mins:02d}:{duration_secs:02d}
-📱 **Resolution:** {video.width}x{video.height}
+**📂 File ɪɴғᴏ:**
+**📁 Size:** {file_size_mb:.1f} MB
+**⏱️ Duration:** {duration_mins:02d}:{duration_secs:02d}
+**📱 Resolution:** {video.width}x{video.height}
 
-**Ready ᴛᴏ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏ!** Cʟɪᴄᴋ ᴛʜᴇ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴏʀ ᴜsᴇ /clip ᴛᴏ ᴄᴏɴᴛɪɴᴜᴇ.
+**✨ Ready ᴛᴏ sᴘʟɪᴛ ʏᴏᴜʀ ᴠɪᴅᴇᴏ!** 
+**Click ᴛʜᴇ ʙᴜᴛᴛᴏɴ ʙᴇʟᴏᴡ ᴏʀ ᴜsᴇ /clip ᴛᴏ ᴄᴏɴᴛɪɴᴜᴇ.**
         """
         
         keyboard = InlineKeyboardMarkup([
@@ -161,17 +162,18 @@ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀
         logger.info(f"User {user_id} state changed to waiting_duration")
         
         duration_text = """
-⏱️ **Clip Dᴜʀᴀᴛɪᴏɴ**
+⏱️ **Clip ᴅᴜʀᴀᴛɪᴏɴ**
 
-**How ʟᴏɴɢ sʜᴏᴜʟᴅ ᴇᴀᴄʜ ᴄʟɪᴘ ʙᴇ?** Sᴇɴᴅ ᴍᴇ ᴛʜᴇ ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs.
+**🔹 How ʟᴏɴɢ sʜᴏᴜʟᴅ ᴇᴀᴄʜ ᴄʟɪᴘ ʙᴇ?** 
+**Send ᴍᴇ ᴛʜᴇ ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs.**
 
-**Examples:**
-• **30** - 30 sᴇᴄᴏɴᴅ ᴄʟɪᴘs
-• **60** - 1 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs  
-• **120** - 2 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs
-• **300** - 5 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs
+**📋 Examples:**
+**• 30** - **30 sᴇᴄᴏɴᴅ ᴄʟɪᴘs**
+**• 60** - **1 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs**
+**• 120** - **2 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs**
+**• 300** - **5 ᴍɪɴᴜᴛᴇ ᴄʟɪᴘs**
 
-**Enter ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs:**
+**⬇️ Enter ᴅᴜʀᴀᴛɪᴏɴ ɪɴ sᴇᴄᴏɴᴅs:**
         """
         
         await message.reply_text(duration_text)
@@ -241,7 +243,7 @@ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀
             # Upload clips
             for i, clip_path in enumerate(clip_files, 1):
                 try:
-                    caption = f"📹 **Clip {i}/{len(clip_files)}** • **Duration:** {duration}s ᴇᴀᴄʜ • **Quality:** Oʀɪɢɪɴᴀʟ"
+                    caption = f"📹 **Clip {i}/{len(clip_files)}** • **Duration:** {duration}s ᴇᴀᴄʜ • **Quality:** ᴏʀɪɢɪɴᴀʟ"
                     await message.reply_video(
                         video=clip_path,
                         caption=caption
@@ -256,7 +258,7 @@ Send ᴍᴇ ᴀ ᴠɪᴅᴇᴏ ᴛᴏ ɢᴇᴛ sᴛᴀʀᴛᴇᴅ! 🚀
                     await message.reply_text(f"❌ **Failed ᴛᴏ Uᴘʟᴏᴀᴅ Cʟɪᴘ {i}:** {str(e)}")
             
             # Success message
-            await status_msg.edit_text(f"✅ **Processing Cᴏᴍᴘʟᴇᴛᴇ!**\n\n📹 **{len(clip_files)} Cʟɪᴘs Sᴇɴᴛ Sᴜᴄᴄᴇssғᴜʟʟʏ!**\n\n🎬 **Thank Yᴏᴜ ғᴏʀ ᴜsɪɴɢ Vɪᴅᴇᴏ Sᴘʟɪᴛᴛᴇʀ Bᴏᴛ!**")
+            await status_msg.edit_text(f"✅ **Processing ᴄᴏᴍᴘʟᴇᴛᴇ!**\n\n📹 **{len(clip_files)} Clips ꜱᴇɴᴛ ꜱᴜᴄᴄᴇꜱꜱғᴜʟʟʏ!**\n\n🎬 **Thank ʏᴏᴜ ғᴏʀ ᴜsɪɴɢ Video Sᴘʟɪᴛᴛᴇʀ Bᴏᴛ!**")
             
             # Cleanup
             await self._cleanup_files([temp_path] + clip_files)
